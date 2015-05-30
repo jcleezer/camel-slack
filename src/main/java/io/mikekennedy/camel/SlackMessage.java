@@ -1,7 +1,13 @@
 package io.mikekennedy.camel;
 
-/**
- * Created by mikek on 5/29/15.
- */
 public class SlackMessage {
+
+    private String text;
+    private String channel;
+    private String username;
+    private String icon_url;
+    private String icon_emoji;
+
+
+
 }
