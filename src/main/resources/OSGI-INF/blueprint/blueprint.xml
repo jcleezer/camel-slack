@@ -24,7 +24,7 @@
     <camelContext xmlns="http://camel.apache.org/schema/blueprint">
         <route>
             <from uri="direct:test"/>
-            <to uri="slack:@mikek?iconEmoji=:camel:&amp;username=CamelTest"/>
+            <to uri="slack:#esb?iconEmoji=:camel:&amp;username=CamelTest"/>
         </route>
     </camelContext>
 

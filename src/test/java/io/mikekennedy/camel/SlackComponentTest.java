@@ -31,7 +31,7 @@ public class SlackComponentTest extends CamelBlueprintTestSupport {
 
     @Test
     public void testSlackMessage() throws Exception {
-        template.sendBody("direct:test", "Test from Camel!");
+        template.sendBody("direct:test", "Hello from Camel!");
         assertTrue(true);
     }
 
