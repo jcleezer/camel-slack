@@ -13,8 +13,16 @@ public class SlackEndpoint extends DefaultEndpoint {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(SlackEndpoint.class);
 
-    public SlackEndpoint(String uri, SlackComponent component) {
+    private String webhookUrl;
+    private String username;
+    private String channel;
+    private String iconUrl;
+    private String iconEmoji;
+
+    public SlackEndpoint(String uri, String channelName, SlackComponent component) {
         super(uri, component);
+        this.webhookUrl = component.getWebhookUrl();
+        this.channel = channelName;
     }
 
     @Override
@@ -31,5 +39,37 @@ public class SlackEndpoint extends DefaultEndpoint {
     @Override
     public boolean isSingleton() {
         return false;
+    }
+
+    public String getWebhookUrl() {
+        return webhookUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
+
+    public String getIconEmoji() {
+        return iconEmoji;
+    }
+
+    public void setIconEmoji(String iconEmoji) {
+        this.iconEmoji = iconEmoji;
     }
 }
