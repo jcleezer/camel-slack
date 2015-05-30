@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-class=io.mikekennedy.camel.HelloWorldComponent
+class=io.mikekennedy.camel.SlackComponent

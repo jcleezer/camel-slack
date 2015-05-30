@@ -16,19 +16,29 @@
  */
 package io.mikekennedy.camel;
 
-import java.util.Map;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.test.junit4.CamelTestSupport;
+import org.junit.Test;
 
-import org.apache.camel.Endpoint;
-import org.apache.camel.impl.DefaultComponent;
+public class SlackComponentTest extends CamelTestSupport {
 
-/**
- * Represents the component that manages {@link HelloWorldEndpoint}.
- */
-public class HelloWorldComponent extends DefaultComponent {
+    @Test
+    public void testHelloWorld() throws Exception {
+        MockEndpoint mock = getMockEndpoint("mock:result");
+        mock.expectedMinimumMessageCount(1);       
+        
+        assertMockEndpointsSatisfied();
+    }
 
-    protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        Endpoint endpoint = new HelloWorldEndpoint(uri, this);
-        setProperties(endpoint, parameters);
-        return endpoint;
+    @Override
+    protected RouteBuilder createRouteBuilder() throws Exception {
+        return new RouteBuilder() {
+            public void configure() {
+                from("slack://foo")
+                  .to("slack://bar")
+                  .to("mock:result");
+            }
+        };
     }
 }
