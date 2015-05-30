@@ -2,8 +2,11 @@ package io.mikekennedy.camel;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultProducer;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.http.client.HttpClient;
+
 
 public class SlackProducer extends DefaultProducer {
 
@@ -18,6 +21,7 @@ public class SlackProducer extends DefaultProducer {
 
     @Override
     public void process(Exchange exchange) throws Exception {
+        HttpClient client = HttpClientBuilder.create().build();
 
     }
 }
