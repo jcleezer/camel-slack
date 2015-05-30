@@ -37,3 +37,25 @@ The SlackComponent must be configured as a Spring or Blueprint bean that contain
     <property name="webhookUrl" value="https://hooks.slack.com/services/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"/>
 </bean>
 ```
+
+## Example
+
+First configure your blueprint or spring xml.
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="lazy">
+
+    <bean id="slack" class="io.mikekennedy.camel.SlackComponent">
+        <property name="webhookUrl" value="https://hooks.slack.com/services/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"/>
+    </bean>
+    
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="direct:test"/>
+            <to uri="slack:#channel?iconEmoji=:camel:&amp;username=CamelTest"/>
+        </route>
+    </camelContext>
+
+</blueprint>
+```
