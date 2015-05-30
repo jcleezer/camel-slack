@@ -5,8 +5,8 @@ public class SlackMessage {
     private String text;
     private String channel;
     private String username;
-    private String icon_url;
-    private String icon_emoji;
+    private String iconUrl;
+    private String iconEmoji;
 
     public String getText() {
         return text;
@@ -32,19 +32,19 @@ public class SlackMessage {
         this.username = username;
     }
 
-    public String getIcon_url() {
-        return icon_url;
+    public String getIconUrl() {
+        return iconUrl;
     }
 
-    public void setIcon_url(String icon_url) {
-        this.icon_url = icon_url;
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
-    public String getIcon_emoji() {
-        return icon_emoji;
+    public String getIconEmoji() {
+        return iconEmoji;
     }
 
-    public void setIcon_emoji(String icon_emoji) {
-        this.icon_emoji = icon_emoji;
+    public void setIconEmoji(String iconEmoji) {
+        this.iconEmoji = iconEmoji;
     }
 }
