@@ -38,9 +38,7 @@ The SlackComponent must be configured as a Spring or Blueprint bean that contain
 </bean>
 ```
 
-## Example
-
-First configure your blueprint or spring xml.
+## Example Configuration
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
