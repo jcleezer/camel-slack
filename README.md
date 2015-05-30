@@ -27,3 +27,13 @@ These options will
 | `username` | `username=CamelUser` | This is the username that the bot will have when sending messages to a channel or user. |
 | `iconUrl` | `iconUrl=http://somehost.com/avatar.gif` | The avatar that the component will use when sending message to a channel or user. |
 | `iconEmoji` | `iconEmoji=:camel:` | Use a Slack emoji as an avatar |
+
+## SlackComponent
+
+The SlackComponent must be configured as a Spring or Blueprint bean that contains the incoming webhook url for the integration as a parameter.
+
+```
+<bean id="slack" class="io.mikekennedy.camel.SlackComponent">
+    <property name="webhookUrl" value="https://hooks.slack.com/services/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"/>
+</bean>
+```
