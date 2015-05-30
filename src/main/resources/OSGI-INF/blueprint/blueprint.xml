@@ -17,4 +17,15 @@
 -->
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="lazy">
 
+    <bean id="slack" class="io.mikekennedy.camel.SlackComponent">
+        <property name="webhookUrl" value="https://hooks.slack.com/services/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"/>
+    </bean>
+    
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="direct:test"/>
+            <to uri="slack:@mikek?iconEmoji=:camel:&amp;username=CamelTest"/>
+        </route>
+    </camelContext>
+
 </blueprint>
