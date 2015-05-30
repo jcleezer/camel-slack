@@ -18,27 +18,21 @@ package io.mikekennedy.camel;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
 
-public class SlackComponentTest extends CamelTestSupport {
-
-    @Test
-    public void testHelloWorld() throws Exception {
-        MockEndpoint mock = getMockEndpoint("mock:result");
-        mock.expectedMinimumMessageCount(1);       
-        
-        assertMockEndpointsSatisfied();
-    }
+public class SlackComponentTest extends CamelBlueprintTestSupport {
 
     @Override
-    protected RouteBuilder createRouteBuilder() throws Exception {
-        return new RouteBuilder() {
-            public void configure() {
-                from("slack://foo")
-                  .to("slack://bar")
-                  .to("mock:result");
-            }
-        };
+    protected String getBlueprintDescriptor() {
+        return "OSGI-INF/blueprint/blueprint.xml";
     }
+
+    @Test
+    public void testSlackMessage() throws Exception {
+        template.sendBody("direct:test", "Test from Camel!");
+        assertTrue(true);
+    }
+
 }
