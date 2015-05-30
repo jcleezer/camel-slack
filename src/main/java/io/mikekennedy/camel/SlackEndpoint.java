@@ -6,6 +6,8 @@ import org.apache.camel.Producer;
 import org.apache.camel.impl.DefaultEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.http.client.HttpClient;
+
 
 public class SlackEndpoint extends DefaultEndpoint {
 
@@ -17,7 +19,8 @@ public class SlackEndpoint extends DefaultEndpoint {
 
     @Override
     public Producer createProducer() throws Exception {
-        return null;
+        SlackProducer producer = new SlackProducer(this);
+        return producer;
     }
 
     @Override
