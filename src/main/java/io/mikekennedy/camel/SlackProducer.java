@@ -1,7 +1,9 @@
 package io.mikekennedy.camel;
 
+import org.apache.camel.CamelException;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultProducer;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -16,32 +18,42 @@ public class SlackProducer extends DefaultProducer {
 
     private SlackEndpoint slackEndpoint;
 
+    /**
+     * Constuctor
+     *
+     * @param endpoint a SlackEndpoint
+     */
     public SlackProducer(SlackEndpoint endpoint) {
         super(endpoint);
         this.slackEndpoint = endpoint;
-        LOG.info("webHookUrl = " + this.slackEndpoint.getWebhookUrl());
     }
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        HttpClient client = HttpClientBuilder.create().build();
 
+        // Create an HttpClient and Post object
+        HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(slackEndpoint.getWebhookUrl());
 
+        // Build Helper object
         SlackMessage slackMessage = new SlackMessage();
-
-        slackMessage.setText((String)exchange.getIn().getBody());
+        slackMessage.setText(exchange.getIn().getBody(String.class));
         slackMessage.setChannel(slackEndpoint.getChannel());
         slackMessage.setUsername(slackEndpoint.getUsername());
         slackMessage.setIconUrl(slackEndpoint.getIconUrl());
         slackMessage.setIconEmoji(slackEndpoint.getIconEmoji());
 
+        // Set the post body
         StringEntity body = new StringEntity(slackMessage.toString());
 
-        LOG.info(slackMessage.toString());
 
+        // Do the post
         httpPost.setEntity(body);
 
-        client.execute(httpPost);
+        HttpResponse response = client.execute(httpPost);
+
+        if (response.getStatusLine().getStatusCode() != 200) {
+            throw new CamelException("Error POSTing to Slack API: " + response.toString());
+        }
     }
 }
