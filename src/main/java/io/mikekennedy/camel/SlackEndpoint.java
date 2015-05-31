@@ -19,18 +19,38 @@ public class SlackEndpoint extends DefaultEndpoint {
     private String iconUrl;
     private String iconEmoji;
 
+    /**
+     * Constructor for SlackEndpoint
+     *
+     * @param uri the full component url
+     * @param channelName the channel or username the message is directed at
+     * @param component the component that was created
+     */
     public SlackEndpoint(String uri, String channelName, SlackComponent component) {
         super(uri, component);
         this.webhookUrl = component.getWebhookUrl();
         this.channel = channelName;
     }
 
+    /**
+     * Creates a SlackProducer
+     *
+     * @return SlackProducer
+     * @throws Exception
+     */
     @Override
     public Producer createProducer() throws Exception {
         SlackProducer producer = new SlackProducer(this);
         return producer;
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @param processor
+     * @return
+     * @throws java.lang.UnsupportedOperationException
+     */
     @Override
     public Consumer createConsumer(Processor processor) throws Exception {
         throw new UnsupportedOperationException("You cannot consume slack messages from this endpoint: " + getEndpointUri());
