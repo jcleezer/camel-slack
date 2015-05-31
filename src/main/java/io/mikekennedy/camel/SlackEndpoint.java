@@ -58,7 +58,7 @@ public class SlackEndpoint extends DefaultEndpoint {
 
     @Override
     public boolean isSingleton() {
-        return false;
+        return true;
     }
 
     public String getWebhookUrl() {
