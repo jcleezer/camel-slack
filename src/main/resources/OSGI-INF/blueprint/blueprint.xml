@@ -22,9 +22,20 @@
     </bean>
     
     <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <onException>
+            <exception>java.lang.Exception</exception>
+            <handled>
+                <constant>true</constant>
+            </handled>
+            <to uri="mock:errors"/>
+        </onException>
         <route>
             <from uri="direct:test"/>
-            <to uri="slack:#esb?iconEmoji=:camel:&amp;username=CamelTest"/>
+            <to uri="slack:@mikek?iconEmoji=:camel:&amp;username=CamelTest"/>
+        </route>
+        <route>
+            <from uri="direct:error"/>
+            <to uri="slack:#badchannel?iconEmoji=:camel:&amp;username=CamelTest"/>
         </route>
     </camelContext>
 

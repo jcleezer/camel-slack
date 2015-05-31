@@ -53,6 +53,7 @@ public class SlackProducer extends DefaultProducer {
         HttpResponse response = client.execute(httpPost);
 
         if (response.getStatusLine().getStatusCode() != 200) {
+            LOG.error("Error POSTing to Slack API: " + response.toString());
             throw new CamelException("Error POSTing to Slack API: " + response.toString());
         }
     }

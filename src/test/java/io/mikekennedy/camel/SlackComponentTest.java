@@ -16,6 +16,7 @@
  */
 package io.mikekennedy.camel;
 
+import org.apache.camel.CamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
@@ -31,8 +32,15 @@ public class SlackComponentTest extends CamelBlueprintTestSupport {
 
     @Test
     public void testSlackMessage() throws Exception {
+        getMockEndpoint(("mock:errors")).expectedMessageCount(0);
         template.sendBody("direct:test", "Hello from Camel!");
-        assertTrue(true);
+        assertMockEndpointsSatisfied();
     }
 
+    @Test
+    public void testSlackError() throws Exception {
+        getMockEndpoint(("mock:errors")).expectedMessageCount(1);
+        template.sendBody("direct:error", "Error from Camel!");
+        assertMockEndpointsSatisfied();
+    }
 }
