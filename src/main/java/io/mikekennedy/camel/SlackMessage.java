@@ -1,20 +1,23 @@
 package io.mikekennedy.camel;
 
-import org.json.simple.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Helper class for building JSON message to Slack API
  */
 public class SlackMessage {
 
+    private static final Gson gson = new Gson();
+
     private String text;
     private String channel;
     private String username;
     private String iconUrl;
     private String iconEmoji;
+
+    @SerializedName("attachments")
+    private SlackAttachment[] slackAttachments;
 
     public String getText() {
         return text;
@@ -56,27 +59,20 @@ public class SlackMessage {
         this.iconEmoji = iconEmoji;
     }
 
+    public SlackAttachment[] getSlackAttachments() {
+        return slackAttachments;
+    }
+
+    public void setSlackAttachments(SlackAttachment[] slackAttachments) {
+        this.slackAttachments = slackAttachments;
+    }
+
     /**
      * Returns a JSON string to be posted to the Slack API
      *
      * @return JSON string
      */
     public String toString() {
-
-        Map<String, String> jsonMap = new HashMap<String, String>();
-
-        // Put the values in a map
-        jsonMap.put("text", this.text);
-        jsonMap.put("channel", this.channel);
-        jsonMap.put("username", this.username);
-        jsonMap.put("icon_url", this.iconUrl);
-        jsonMap.put("icon_emoji", this.iconEmoji);
-
-        // Generate a JSONObject
-        JSONObject jsonObject = new JSONObject(jsonMap);
-
-        // Return the string based on the JSON Object
-        return JSONObject.toJSONString(jsonMap);
-
+        return gson.toJson(this);
     }
 }
